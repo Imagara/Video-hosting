@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeancesTable extends Migration
+class CreatePlaylistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateSeancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('seances', function (Blueprint $table) {
+        Schema::create('playlists', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('idHall');
-            $table->foreign('idHall')->references('id')->on('halls');
-            $table->dateTime('seanceDate');
-            $table->unsignedInteger('idMovie');
-            $table->foreign('idMovie')->references('id')->on('movies');
+            $table->string('name');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('views');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateSeancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seances');
+        Schema::dropIfExists('playlists');
     }
 }
